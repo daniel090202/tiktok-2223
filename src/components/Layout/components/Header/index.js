@@ -12,6 +12,7 @@ import { faSpinner, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import Account from '~/components/Account';
+import Button from '~/components/Button';
 
 const cn = classNames.bind(styles);
 
@@ -51,7 +52,10 @@ function Header() {
                         </Tippy>
                     </div>
                 </Tippy>
-                <div className={cn('actions')}></div>
+                <div className={cn('actions')}>
+                    <Button text>Upload</Button>
+                    <Button primary>Login</Button>
+                </div>
             </div>
         </header>
     );

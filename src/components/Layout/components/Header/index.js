@@ -7,14 +7,44 @@ import Tippy from '@tippyjs/react/headless';
 import 'tippy.js/dist/tippy.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
-import { faSpinner, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faCircleQuestion, faCircleXmark, faKeyboard } from '@fortawesome/free-regular-svg-icons';
+import { faSpinner, faMagnifyingGlass, faEllipsisVertical, faGlobe } from '@fortawesome/free-solid-svg-icons';
 
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import Account from '~/components/Account';
 import Button from '~/components/Button';
+import Menu from '~/components/Popper/Menu';
 
 const cn = classNames.bind(styles);
+
+const MENU_ITEMS = [
+    {
+        icon: <FontAwesomeIcon icon={faGlobe} />,
+        title: 'English',
+        children: {
+            title: 'Languages',
+            data: [
+                {
+                    code: 'en',
+                    title: 'English',
+                },
+                {
+                    code: 'vn',
+                    title: 'Vietnam',
+                },
+            ],
+        },
+    },
+    {
+        icon: <FontAwesomeIcon icon={faCircleQuestion} />,
+        title: 'Feedback And Helps',
+        to: '/feedback',
+    },
+    {
+        icon: <FontAwesomeIcon icon={faKeyboard} />,
+        title: 'Keyboard Shortcuts',
+    },
+];
 
 function Header() {
     const [searchResult, setSearchResult] = useState([]);
@@ -55,6 +85,11 @@ function Header() {
                 <div className={cn('actions')}>
                     <Button text>Upload</Button>
                     <Button primary>Login</Button>
+                    <Menu menuItems={MENU_ITEMS}>
+                        <button className={cn('selection-icon')}>
+                            <FontAwesomeIcon icon={faEllipsisVertical} />
+                        </button>
+                    </Menu>
                 </div>
             </div>
         </header>

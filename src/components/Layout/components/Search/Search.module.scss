@@ -1,26 +1,3 @@
-.wrapper {
-    --search-height: 46px;
-    --search-top-spacer: 9px;
-    --search-border-radius: 92px;
-    --search-button-width: 52px;
-
-    width: 100%;
-    height: var(--default-layout-header-height, 60px);
-    box-shadow: 0px 1px 1px rgb(0, 0, 0, 12%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.inner {
-    width: var(--default-layout-width);
-    height: 100%;
-    padding: 0 var(--default-layout-horizontal-spacer);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
 .search {
     position: relative;
     width: 361px;
@@ -63,7 +40,7 @@
 .search-result {
     width: 361px;
     position: absolute;
-    left: -120px;
+    transform: translateX(-50%);
 }
 
 .search-title {
@@ -102,54 +79,4 @@
     &:active {
         background-color: rgba(22, 24, 25, 0.06);
     }
-}
-
-// ---------- Header Actions Components ---------- //
-.actions {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.selection-icon {
-    margin: 0 0 0 28px;
-    padding: 8px;
-    font-size: 2rem;
-    background-color: transparent;
-    cursor: pointer;
-}
-
-.action-button {
-    padding: 4px 16px;
-    color: #161823;
-    font-size: 2.4rem;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.inbox-icon {
-    width: 24px;
-    height: 24px;
-    position: absolute;
-    top: -2px;
-    right: 2px;
-    color: var(--white-color);
-    font-size: 1.2rem;
-    font-weight: 600;
-    border-radius: 50%;
-    background-color: var(--primary-color);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.current-user-avatar {
-    width: 32px;
-    height: 32px;
-    margin: 0 0 0 16px;
-    border-radius: 50%;
-    object-fit: cover;
-    cursor: pointer;
 }

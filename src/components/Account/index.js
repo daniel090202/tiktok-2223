@@ -3,12 +3,13 @@ import styles from './Account.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 
+import Image  from '~/components/Image';
 const cn = classNames.bind(styles);
 
 function Account() {
     return (
         <div className={cn('wrapper')}>
-            <img
+            <Image
                 className={cn('account-avatar')}
                 src="https://i.pinimg.com/564x/29/43/a0/2943a0525383b68070779d5b1e654bdf.jpg"
                 alt="User Avatar."

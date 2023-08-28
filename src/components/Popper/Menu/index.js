@@ -38,7 +38,8 @@ function Menu({ children, menuItems = [], onChange = () => {} }) {
 
     return (
         <Tippy
-            delay={[0, 800]}
+            trigger="click"
+            delay={[0, 200]}
             offset={[12, 8]}
             interactive={true}
             placement="bottom-end"

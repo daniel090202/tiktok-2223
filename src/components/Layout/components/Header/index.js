@@ -1,18 +1,13 @@
-import { useState, useEffect } from 'react';
-
 import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import images from '~/assets/images';
 
-import HeadlessTippy from '@tippyjs/react/headless';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleQuestion, faCircleXmark, faKeyboard, faMessage, faUser } from '@fortawesome/free-regular-svg-icons';
+import { faCircleQuestion, faKeyboard, faUser } from '@fortawesome/free-regular-svg-icons';
 import {
-    faSpinner,
-    faMagnifyingGlass,
     faEllipsisVertical,
     faGlobe,
     faArrowUpFromBracket,
@@ -21,10 +16,11 @@ import {
     faSignOut,
 } from '@fortawesome/free-solid-svg-icons';
 
-import { Wrapper as PopperWrapper } from '~/components/Popper';
-import Account from '~/components/Account';
+import { MessageIcon, InboxIcon } from '~/components/Icons';
 import Button from '~/components/Button';
+import Image from '~/components/Image';
 import Menu from '~/components/Popper/Menu';
+import Search from '~/components/Layout/components/Search';
 
 const cn = classNames.bind(styles);
 
@@ -62,14 +58,6 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
-    const [searchResult, setSearchResult] = useState([]);
-
-    useEffect(() => {
-        setTimeout(() => {
-            setSearchResult([]);
-        }, 0);
-    }, []);
-
     const handleMenuChange = (menuItem) => {};
 
     const currentUserMenu = [
@@ -102,33 +90,7 @@ function Header() {
                 <div className={cn('logo')}>
                     <img src={images.logo} alt="TikTok Logo" />
                 </div>
-                <HeadlessTippy
-                    interactive={true}
-                    visible={searchResult.length > 0}
-                    render={(attrs) => (
-                        <div className={cn('search-result')} tabIndex="-1" {...attrs}>
-                            <PopperWrapper>
-                                <h4 className={cn('search-title')}>Accounts</h4>
-                                <Account />
-                                <Account />
-                                <Account />
-                            </PopperWrapper>
-                        </div>
-                    )}
-                >
-                    <div className={cn('search')}>
-                        <input placeholder={'Search accounts and videos'} spellCheck={false} />
-                        <button className={cn('search-clear')}>
-                            <FontAwesomeIcon icon={faCircleXmark} />
-                        </button>
-                        <FontAwesomeIcon className={cn('loading')} icon={faSpinner} />
-                        <HeadlessTippy content="Search">
-                            <button className={cn('search-button')}>
-                                <FontAwesomeIcon icon={faMagnifyingGlass} />
-                            </button>
-                        </HeadlessTippy>
-                    </div>
-                </HeadlessTippy>
+                <Search />
                 <div className={cn('actions')}>
                     {currentUser ? (
                         <>
@@ -139,7 +101,13 @@ function Header() {
                             </Tippy>
                             <Tippy delay={[0, 200]} content="Messages" placement="bottom">
                                 <button className={cn('action-button')}>
-                                    <FontAwesomeIcon icon={faMessage} />
+                                    <MessageIcon />
+                                </button>
+                            </Tippy>
+                            <Tippy delay={[0, 200]} content="Inboxs" placement="bottom">
+                                <button className={cn('action-button')}>
+                                    <InboxIcon />
+                                    <span className={cn('inbox-icon')}>32</span>
                                 </button>
                             </Tippy>
                         </>
@@ -151,7 +119,7 @@ function Header() {
                     )}
                     <Menu menuItems={currentUser ? currentUserMenu : MENU_ITEMS} onChange={handleMenuChange()}>
                         {currentUser ? (
-                            <img
+                            <Image
                                 className={cn('current-user-avatar')}
                                 src="https://i.pinimg.com/564x/d1/aa/ef/d1aaefd81b0d818b5cded4d422ce41b0.jpg"
                                 alt="User's Avatar"

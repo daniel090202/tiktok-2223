@@ -104,6 +104,7 @@
     }
 }
 
+// ---------- Header Actions Components ---------- //
 .actions {
     display: flex;
     align-items: center;
@@ -114,5 +115,20 @@
     padding: 8px;
     font-size: 2rem;
     background-color: transparent;
+    cursor: pointer;
+}
+
+.action-button {
+    color: #161823;
+    font-size: 2.4rem;
+    padding: 4px 16px;
+}
+
+.current-user-avatar {
+    width: 32px;
+    height: 32px;
+    margin: 0 0 0 16px;
+    border-radius: 50%;
+    object-fit: cover;
     cursor: pointer;
 }

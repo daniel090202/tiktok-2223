@@ -12,7 +12,7 @@ import { faMagnifyingGlass, faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import Account from '~/components/Account';
-
+import { useDebounce } from '~/components/hooks';
 const cn = classNames.bind(styles);
 
 function Search() {
@@ -20,6 +20,8 @@ function Search() {
     const [searchResult, setSearchResult] = useState([]);
     const [showResult, setShowResult] = useState(true);
     const [loading, setLoading] = useState(false);
+
+    const debounced = useDebounce(searchValue, 500);
 
     const inputRef = useRef();
 
@@ -34,14 +36,14 @@ function Search() {
     };
 
     useEffect(() => {
-        if (!searchValue.trim()) {
+        if (!debounced.trim()) {
             setSearchResult([]);
             return;
         }
 
         setLoading(true);
 
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(debounced)}&type=less`)
             .then((response) => response.json())
             .then((response) => {
                 setSearchResult(response.data);
@@ -50,7 +52,7 @@ function Search() {
             .catch(() => {
                 setLoading(false);
             });
-    }, [searchValue]);
+    }, [debounced]);
 
     return (
         <HeadlessTippy

@@ -1,27 +1,27 @@
+import { Link } from 'react-router-dom';
+
 import classNames from 'classnames/bind';
 import styles from './Account.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 
-import Image  from '~/components/Image';
+import Image from '~/components/Image';
 const cn = classNames.bind(styles);
 
-function Account() {
+function Account({ data }) {
     return (
-        <div className={cn('wrapper')}>
-            <Image
-                className={cn('account-avatar')}
-                src="https://i.pinimg.com/564x/29/43/a0/2943a0525383b68070779d5b1e654bdf.jpg"
-                alt="User Avatar."
-            />
+        <Link to={`/@${data.nickname}`} className={cn('wrapper')}>
+            <Image className={cn('account-avatar')} src={data.avatar} alt={data.full_name} />
             <div className={cn('account-informations')}>
                 <h4 className={cn('account-id')}>
-                    <span>daniel090202</span>
-                    <FontAwesomeIcon className={cn('account-check')} icon={faCheckCircle}></FontAwesomeIcon>
+                    <span>{data.full_name}</span>
+                    {data.tick === true && (
+                        <FontAwesomeIcon className={cn('account-check')} icon={faCheckCircle}></FontAwesomeIcon>
+                    )}
                 </h4>
-                <span className={cn('account-name')}>Daniel Nguyen</span>
+                <span className={cn('account-name')}>{data.nickname}</span>
             </div>
-        </div>
+        </Link>
     );
 }
 

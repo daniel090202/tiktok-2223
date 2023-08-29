@@ -8,7 +8,7 @@ import 'tippy.js/dist/tippy.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import Account from '~/components/Account';
@@ -19,6 +19,7 @@ function Search() {
     const [searchValue, setSearchValue] = useState('');
     const [searchResult, setSearchResult] = useState([]);
     const [showResult, setShowResult] = useState(true);
+    const [loading, setLoading] = useState(false);
 
     const inputRef = useRef();
 
@@ -33,10 +34,23 @@ function Search() {
     };
 
     useEffect(() => {
-        setTimeout(() => {
-            setSearchResult([1, 2, 3]);
-        }, 0);
-    }, []);
+        if (!searchValue.trim()) {
+            setSearchResult([]);
+            return;
+        }
+
+        setLoading(true);
+
+        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
+            .then((response) => response.json())
+            .then((response) => {
+                setSearchResult(response.data);
+                setLoading(false);
+            })
+            .catch(() => {
+                setLoading(false);
+            });
+    }, [searchValue]);
 
     return (
         <HeadlessTippy
@@ -46,9 +60,9 @@ function Search() {
                 <div className={cn('search-result')} tabIndex="-1" {...attrs}>
                     <PopperWrapper>
                         <h4 className={cn('search-title')}>Accounts</h4>
-                        <Account />
-                        <Account />
-                        <Account />
+                        {searchResult.map((account) => (
+                            <Account key={account.id} data={account} />
+                        ))}
                     </PopperWrapper>
                 </div>
             )}
@@ -64,12 +78,12 @@ function Search() {
                     onChange={(e) => setSearchValue(e.target.value)}
                     onFocus={() => setShowResult(true)}
                 />
-                {!!searchValue && (
+                {!!searchValue && !loading && (
                     <button className={cn('search-clear')} onClick={handleSearchValue}>
                         <FontAwesomeIcon icon={faCircleXmark} />
                     </button>
                 )}
-                {/* <FontAwesomeIcon className={cn('loading')} icon={faSpinner} /> */}
+                {loading && <FontAwesomeIcon className={cn('loading')} icon={faSpinner} />}
                 <HeadlessTippy content="Search">
                     <button className={cn('search-button')}>
                         <FontAwesomeIcon icon={faMagnifyingGlass} />

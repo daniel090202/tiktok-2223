@@ -2,6 +2,8 @@ import classNames from 'classnames/bind';
 import styles from './Header.module.scss';
 import images from '~/assets/images';
 
+import { Link } from 'react-router-dom';
+
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 
@@ -15,6 +17,8 @@ import {
     faGear,
     faSignOut,
 } from '@fortawesome/free-solid-svg-icons';
+
+import routesConfig from '~/config/routes';
 
 import { MessageIcon, InboxIcon } from '~/components/Icons';
 import Button from '~/components/Button';
@@ -58,7 +62,9 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
-    const handleMenuChange = (menuItem) => {};
+    const handleMenuChange = (menuItem) => {
+        return;
+    };
 
     const currentUserMenu = [
         {
@@ -88,7 +94,9 @@ function Header() {
         <header className={cn('wrapper')}>
             <div className={cn('inner')}>
                 <div className={cn('logo')}>
-                    <img src={images.logo} alt="TikTok Logo" />
+                    <Link className={cn('logo-link')} to={routesConfig.home}>
+                        <img src={images.logo} alt="TikTok Logo" />
+                    </Link>
                 </div>
                 <Search />
                 <div className={cn('actions')}>

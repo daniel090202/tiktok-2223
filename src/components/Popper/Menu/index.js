@@ -12,7 +12,7 @@ import Header from './Header';
 
 const cn = classNames.bind(styles);
 
-function Menu({ children, menuItems = [], onChange = () => {} }) {
+function Menu({ children, menuItems = [], hideOnClick = false, onChange = () => {} }) {
     const [history, setHistory] = useState([{ data: menuItems }]);
     const currentPopper = history[history.length - 1];
 
@@ -38,7 +38,7 @@ function Menu({ children, menuItems = [], onChange = () => {} }) {
 
     return (
         <Tippy
-            trigger="click"
+            hideOnClick={hideOnClick}
             delay={[0, 200]}
             offset={[12, 8]}
             interactive={true}
@@ -48,13 +48,14 @@ function Menu({ children, menuItems = [], onChange = () => {} }) {
                     <PopperWrapper className={cn('selection-popper')}>
                         {history.length > 1 && (
                             <Header
+                                className={cn('selection-title')}
                                 title="Languages"
                                 onBack={() => {
                                     setHistory((prev) => prev.slice(0, prev.length - 1));
                                 }}
                             ></Header>
                         )}
-                        {renderMenuItems()}
+                        <div className={cn('selection-content')}>{renderMenuItems()}</div>
                     </PopperWrapper>
                 </div>
             )}

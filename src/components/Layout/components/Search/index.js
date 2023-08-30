@@ -32,9 +32,19 @@ function Search() {
         setSearchResult([]);
     };
 
-    const handleHideResult = () => {
+    const handleHideResult = (e) => {
         setShowResult(false);
     };
+
+    const handleChange = (e) => {
+        const searchValue = e.target.value;
+
+        if (!searchValue.startsWith(' ')) {
+            setSearchValue(searchValue);
+        }
+    };
+
+    const handleSubmit = (e) => {};
 
     useEffect(() => {
         if (!debounced.trim()) {
@@ -53,44 +63,51 @@ function Search() {
     }, [debounced]);
 
     return (
-        <HeadlessTippy
-            interactive={true}
-            visible={showResult && searchResult.length > 0}
-            render={(attrs) => (
-                <div className={cn('search-result')} tabIndex="-1" {...attrs}>
-                    <PopperWrapper>
-                        <h4 className={cn('search-title')}>Accounts</h4>
-                        {searchResult.map((account) => (
-                            <Account key={account.id} data={account} />
-                        ))}
-                    </PopperWrapper>
-                </div>
-            )}
-            onClickOutside={handleHideResult}
-        >
-            <div className={cn('search')}>
-                <input
-                    ref={inputRef}
-                    value={searchValue}
-                    placement="bottom"
-                    placeholder={'Search accounts and videos'}
-                    spellCheck={false}
-                    onChange={(e) => setSearchValue(e.target.value)}
-                    onFocus={() => setShowResult(true)}
-                />
-                {!!searchValue && !loading && (
-                    <button className={cn('search-clear')} onClick={handleSearchValue}>
-                        <FontAwesomeIcon icon={faCircleXmark} />
-                    </button>
+        // Using a wrapper <div> or <span> tag around the reference element solves this by creating a new parentNode context
+        <div>
+            <HeadlessTippy
+                interactive={true}
+                visible={showResult && searchResult.length > 0}
+                render={(attrs) => (
+                    <div className={cn('search-result')} tabIndex="-1" {...attrs}>
+                        <PopperWrapper>
+                            <h4 className={cn('search-title')}>Accounts</h4>
+                            {searchResult.map((account) => (
+                                <Account key={account.id} data={account} />
+                            ))}
+                        </PopperWrapper>
+                    </div>
                 )}
-                {loading && <FontAwesomeIcon className={cn('loading')} icon={faSpinner} />}
-                <HeadlessTippy content="Search">
-                    <button className={cn('search-button')}>
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
-                    </button>
-                </HeadlessTippy>
-            </div>
-        </HeadlessTippy>
+                onClickOutside={handleHideResult}
+            >
+                <div className={cn('search')}>
+                    <input
+                        ref={inputRef}
+                        value={searchValue}
+                        placement="bottom"
+                        placeholder={'Search accounts and videos'}
+                        spellCheck={false}
+                        onChange={handleChange}
+                        onFocus={() => setShowResult(true)}
+                    />
+                    {!!searchValue && !loading && (
+                        <button className={cn('search-clear')} onClick={handleSearchValue}>
+                            <FontAwesomeIcon icon={faCircleXmark} />
+                        </button>
+                    )}
+                    {loading && <FontAwesomeIcon className={cn('loading')} icon={faSpinner} />}
+                    <HeadlessTippy content="Search">
+                        <button
+                            className={cn('search-button')}
+                            onMouseDown={(e) => e.preventDefault()}
+                            onClick={handleSubmit}
+                        >
+                            <FontAwesomeIcon icon={faMagnifyingGlass} />
+                        </button>
+                    </HeadlessTippy>
+                </div>
+            </HeadlessTippy>
+        </div>
     );
 }
 

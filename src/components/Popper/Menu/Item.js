@@ -1,7 +1,9 @@
+import PropTypes from 'prop-types';
+
 import classNames from 'classnames/bind';
 import styles from './Menu.module.scss';
 
-import Button from '~/components/Button';
+import {Button} from '~/components/Button';
 
 const cn = classNames.bind(styles);
 
@@ -15,5 +17,10 @@ function Item({ data, onClick }) {
         </Button>
     );
 }
+
+Item.propTypes = {
+    data: PropTypes.object.isRequired,
+    onClick: PropTypes.func,
+};
 
 export default Item;

@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
 import { faMagnifyingGlass, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
-import { search as searchService } from '~/apiServices/searchService';
+import { search as searchService } from '~/services/searchService';
 import Account from '~/components/Account';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import { useDebounce } from '~/components/hooks';

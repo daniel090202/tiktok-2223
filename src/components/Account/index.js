@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 
+import PropTypes from 'prop-types';
+
 import classNames from 'classnames/bind';
 import styles from './Account.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -24,5 +26,8 @@ function Account({ data }) {
         </Link>
     );
 }
+
+// Props Type Library To Validate The Parameter Of Function Component
+
 
 export default Account;

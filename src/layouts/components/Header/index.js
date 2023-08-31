@@ -18,13 +18,13 @@ import {
     faSignOut,
 } from '@fortawesome/free-solid-svg-icons';
 
-import routesConfig from '~/config/routes';
+import config from '~/config';
 
 import { MessageIcon, InboxIcon } from '~/components/Icons';
 import Button from '~/components/Button';
 import Image from '~/components/Image';
 import Menu from '~/components/Popper/Menu';
-import Search from '~/components/Layout/components/Search';
+import Search from '~/layouts/components/Search';
 
 const cn = classNames.bind(styles);
 
@@ -94,7 +94,7 @@ function Header() {
         <header className={cn('wrapper')}>
             <div className={cn('inner')}>
                 <div className={cn('logo')}>
-                    <Link className={cn('logo-link')} to={routesConfig.home}>
+                    <Link className={cn('logo-link')} to={config.routes.home}>
                         <img src={images.logo} alt="TikTok Logo" />
                     </Link>
                 </div>
